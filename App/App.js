@@ -14,15 +14,23 @@ export default class App extends Component<Props> {
 
   render() {
     const { modalVisible } = this.state;
+    const hasNotes = true;
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
-          <Button btnText={""} onPress={this.showModal} />
+          <View style={styles.header}>
+            <Text style={styles.title}>todo</Text>
+            <Button
+              btnStyle={styles.addButton}
+              btnText={""}
+              onPress={this.showModal}
+            />
+          </View>
         </View>
         <Modal
           animationType="slide"
           transparent={false}
-          visible={modalVisible}
+          visible={modalVisible || !hasNotes}
           onRequestClose={() => {
             Alert.alert("Modal has been closed.");
           }}
@@ -44,7 +52,25 @@ const styles = StyleSheet.create({
   innerContainer: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
-    alignSelf: "stretch"
+    alignSelf: "stretch",
+    padding: 40
+  },
+  title: {
+    fontSize: 26,
+    fontFamily: "Arial"
+  },
+  header: {
+    alignItems: "center",
+    padding: 20,
+    borderBottomWidth: 0.5,
+    borderColor: "grey",
+    alignSelf: "stretch",
+    marginHorizontal: -40
+  },
+  addButton: {
+    position: "absolute",
+    right: 40,
+    bottom: -20,
+    maxWidth: 45
   }
 });

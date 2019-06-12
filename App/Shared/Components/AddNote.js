@@ -8,7 +8,7 @@ type Props = {};
 export default class AddNote extends Component<Props> {
 
   state = {
-    editMode: false,
+    editMode: true,
     note: ""
   };
 
