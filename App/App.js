@@ -1,13 +1,34 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Modal } from "react-native";
+
+import AddNote from "./Shared/Components/AddNote";
+import Button from "./Shared/Components/Button";
 
 type Props = {};
 export default class App extends Component<Props> {
+  state = {
+    modalVisible: false
+  };
+  showModal = () => this.setState({ modalVisible: true });
+  hideModal = () => this.setState({ modalVisible: false });
+
   render() {
+    const { modalVisible } = this.state;
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
+        <View style={styles.innerContainer}>
+          <Button btnText={""} onPress={this.showModal} />
+        </View>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+          }}
+        >
+          <AddNote closeModal={this.hideModal} />
+        </Modal>
       </View>
     );
   }
@@ -18,16 +39,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#F5FCFF"
+    flexDirection: "column"
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10
-  },
-  instructions: {
-    textAlign: "center",
-    color: "#333333",
-    marginBottom: 5
+  innerContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "stretch"
   }
 });
