@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Modal } from "react-native";
 
+import DeviceKit from "./Shared/Utils/DeviceKit";
+
 import AddNote from "./Shared/Components/AddNote";
 import Button from "./Shared/Components/Button";
+import NoteList from "./Shared/Components/NoteList";
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -11,6 +14,17 @@ export default class App extends Component<Props> {
   };
   showModal = () => this.setState({ modalVisible: true });
   hideModal = () => this.setState({ modalVisible: false });
+
+  addNote = note => {
+    console.log("NOTE ADDED", note);
+  };
+  removeNote = note => {
+    console.log("NOTE REMOVED", note);
+  };
+
+  handleToggleDone = note => {
+    console.log("NOTE TOGGLED", note);
+  };
 
   render() {
     const { modalVisible } = this.state;
@@ -26,6 +40,11 @@ export default class App extends Component<Props> {
               onPress={this.showModal}
             />
           </View>
+          <NoteList
+            remove={this.removeNote}
+            toggleDone={this.handleToggleDone}
+            notes={dummyNotes}
+          />
         </View>
         <Modal
           animationType="slide"
@@ -35,7 +54,7 @@ export default class App extends Component<Props> {
             Alert.alert("Modal has been closed.");
           }}
         >
-          <AddNote closeModal={this.hideModal} />
+          <AddNote addNote={this.addNote} closeModal={this.hideModal} />
         </Modal>
       </View>
     );
@@ -52,8 +71,7 @@ const styles = StyleSheet.create({
   innerContainer: {
     flex: 1,
     alignItems: "center",
-    alignSelf: "stretch",
-    padding: 40
+    alignSelf: "stretch"
   },
   title: {
     fontSize: 26,
@@ -62,10 +80,11 @@ const styles = StyleSheet.create({
   header: {
     alignItems: "center",
     padding: 20,
-    borderBottomWidth: 0.5,
-    borderColor: "grey",
+    paddingTop: DeviceKit.isIphoneX() ? 50 : 30,
+    borderBottomWidth: 1,
+    borderColor: "#e0e0e0",
     alignSelf: "stretch",
-    marginHorizontal: -40
+    marginHorizontal: 0
   },
   addButton: {
     position: "absolute",
@@ -74,3 +93,31 @@ const styles = StyleSheet.create({
     maxWidth: 45
   }
 });
+
+const dummyNotes = [
+  {
+    createdAt: new Date(),
+    note: "Buy milk",
+    id: 0
+  },
+  {
+    createdAt: new Date(),
+    note: "Buy milk",
+    id: 0
+  },
+  {
+    createdAt: new Date(),
+    note: "Buy milk",
+    id: 0
+  },
+  {
+    createdAt: new Date(),
+    note: "Buy milk",
+    id: 0
+  },
+  {
+    createdAt: new Date(),
+    note: "Buy milk",
+    id: 0
+  }
+];

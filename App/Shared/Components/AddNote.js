@@ -6,34 +6,33 @@ import InputField from "./InputField";
 
 type Props = {};
 export default class AddNote extends Component<Props> {
-
   state = {
-    editMode: true,
+    editMode: false,
     note: ""
   };
 
-  addNote = () => {
-
-  }
-
   render() {
-    const {closeModal} = this.props
-    
+    const { closeModal, addNote } = this.props;
+
     return (
       <KeyboardAvoidingView style={styles.container}>
         <View style={styles.topHalf} />
         <View style={styles.bottomHalf}>
-        {this.state.editMode ? (
-          <Button
-          btnStyle={styles.positionOverLine}
-          btnText={"Add item"}
-          onPress={closeModal}
-        />
-        ) : (
-          <InputField add={this.addNote} style={styles.positionOverLine} value={this.state.note} onChangeText={(text) => this.setState({note: text})} />
-        )}
-              </View>
-
+          {this.state.editMode ? (
+            <InputField
+              add={addNote}
+              style={styles.positionOverLine}
+              value={this.state.note}
+              onChangeText={text => this.setState({ note: text })}
+            />
+          ) : (
+            <Button
+              btnStyle={styles.positionOverLine}
+              btnText={"Add item"}
+              onPress={closeModal}
+            />
+          )}
+        </View>
       </KeyboardAvoidingView>
     );
   }
@@ -64,7 +63,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: -20,
     minWidth: 120,
-    left: 25,
-    right: 25
+    marginHorizontal: 50
   }
 });
