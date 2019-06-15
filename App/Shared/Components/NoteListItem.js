@@ -17,7 +17,7 @@ export default class NoteListItem extends Component<Props> {
           style={styles.removeButton}
           onPress={() => remove(note)}
         >
-          <Icon size={30} name={"ios-add"} style={styles.icon} />
+          <Icon size={32} name={"ios-add"} style={styles.icon} />
         </TouchableOpacity>
       </View>
     );

@@ -6,7 +6,6 @@ const Fill = () => <View style={styles.fill} />;
 class OnOff extends Component {
   constructor(props) {
     super(props);
-    this.toggleOn = this.toggleOn.bind(this);
     this.state = {
       on: this.props.active
     };
@@ -18,7 +17,7 @@ class OnOff extends Component {
     });
   }
 
-  toggleOn() {
+  toggleOn = () => {
     const { on } = this.state;
     const { onPress, active } = this.props;
     if (on == active) {
@@ -29,7 +28,7 @@ class OnOff extends Component {
         onPress(on)
       );
     }
-  }
+  };
 
   render() {
     const { on } = this.state;
@@ -43,9 +42,9 @@ class OnOff extends Component {
 
 const styles = {
   onOff: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
+    width: 18,
+    height: 18,
+    borderRadius: 9,
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 1,
@@ -53,9 +52,9 @@ const styles = {
     borderColor: "#cecece"
   },
   fill: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
+    width: 18,
+    height: 18,
+    borderRadius: 9,
     backgroundColor: "black"
   }
 };

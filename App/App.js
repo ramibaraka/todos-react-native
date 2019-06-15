@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Modal } from "react-native";
 
+import { connect, Provider } from "react-redux";
+
 import DeviceKit from "./Shared/Utils/DeviceKit";
 
 import AddNote from "./Shared/Components/AddNote";
 import Button from "./Shared/Components/Button";
 import NoteList from "./Shared/Components/NoteList";
 
-type Props = {};
-export default class App extends Component<Props> {
+class App extends Component {
   state = {
     modalVisible: false
   };
@@ -28,7 +29,11 @@ export default class App extends Component<Props> {
 
   render() {
     const { modalVisible } = this.state;
+    const { notes } = this.props;
     const hasNotes = true;
+
+    console.log("NOOOOOOOTES\n", notes);
+
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
@@ -43,7 +48,7 @@ export default class App extends Component<Props> {
           <NoteList
             remove={this.removeNote}
             toggleDone={this.handleToggleDone}
-            notes={dummyNotes}
+            notes={notes}
           />
         </View>
         <Modal
@@ -94,30 +99,9 @@ const styles = StyleSheet.create({
   }
 });
 
-const dummyNotes = [
-  {
-    createdAt: new Date(),
-    note: "Buy milk",
-    id: 0
-  },
-  {
-    createdAt: new Date(),
-    note: "Buy milk",
-    id: 0
-  },
-  {
-    createdAt: new Date(),
-    note: "Buy milk",
-    id: 0
-  },
-  {
-    createdAt: new Date(),
-    note: "Buy milk",
-    id: 0
-  },
-  {
-    createdAt: new Date(),
-    note: "Buy milk",
-    id: 0
-  }
-];
+const mapStateToProps = state => ({
+  isLoading: state.noteReducer.isLoading,
+  notes: state.noteReducer.notes
+});
+
+export default connect(mapStateToProps)(App);

@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/dist/Ionicons";
 
 const Button = ({ onPress, btnText, btnStyle }) => (
   <TouchableOpacity style={[styles.button, btnStyle]} onPress={onPress}>
-    <Text style={styles.plusSign}>+</Text>
+    <Icon size={22} name={"ios-add"} style={styles.icon} />
     <Text style={styles.textStyle}>{btnText}</Text>
   </TouchableOpacity>
 );
@@ -17,14 +18,22 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 25,
     backgroundColor: "black",
-    minWidth: 45
+    minWidth: 45,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.44,
+    shadowRadius: 5.32,
+
+    elevation: 16
   },
   textStyle: {
     color: "white"
   },
-  plusSign: {
-    color: "white",
-    fontSize: 18
+  icon: {
+    color: "white"
   }
 });
 

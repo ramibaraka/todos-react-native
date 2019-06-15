@@ -43,7 +43,6 @@ const NoteList = ({ notes, style, remove, toggleDone }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 40,
     paddingLeft: 30,
     flex: 1,
     width: "100%"
@@ -62,7 +61,8 @@ const styles = StyleSheet.create({
   date: {
     fontFamily: "Arial",
     color: "#919191",
-    fontSize: 16
+    fontSize: 16,
+    marginTop: 40
   }
 });
 
