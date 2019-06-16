@@ -102,7 +102,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.notes"
+        applicationId "com.todos"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

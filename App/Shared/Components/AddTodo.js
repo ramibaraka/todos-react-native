@@ -1,35 +1,40 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
 
+import DeviceKit from "../Utils/DeviceKit";
 import Button from "./Button";
 import InputField from "./InputField";
 
 type Props = {};
-export default class AddNote extends Component<Props> {
+export default class AddTodo extends Component<Props> {
   state = {
     editMode: false,
-    note: ""
+    text: ""
   };
 
   render() {
-    const { closeModal, addNote } = this.props;
+    const { addTodo } = this.props;
+    const { text } = this.state;
 
     return (
-      <KeyboardAvoidingView style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={DeviceKit.isIOS() ? "padding" : null}
+        style={styles.container}
+      >
         <View style={styles.topHalf} />
         <View style={styles.bottomHalf}>
           {this.state.editMode ? (
             <InputField
-              add={addNote}
+              add={() => addTodo(text)}
               style={styles.positionOverLine}
-              value={this.state.note}
-              onChangeText={text => this.setState({ note: text })}
+              value={this.state.text}
+              onChangeText={text => this.setState({ text })}
             />
           ) : (
             <Button
               btnStyle={styles.positionOverLine}
               btnText={"Add item"}
-              onPress={closeModal}
+              onPress={() => this.setState({ editMode: true })}
             />
           )}
         </View>

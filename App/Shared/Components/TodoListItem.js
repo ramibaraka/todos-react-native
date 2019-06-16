@@ -4,18 +4,28 @@ import Icon from "react-native-vector-icons/dist/Ionicons";
 
 import OnOff from "./OnOff";
 
-export default class NoteListItem extends Component<Props> {
+export default class TodoListItem extends Component<Props> {
   render() {
-    const { toggleDone, note, remove } = this.props;
+    const { toggleDone, todo, remove } = this.props;
+
     return (
       <View style={styles.container}>
-        <OnOff onPress={() => toggleDone(note)} />
+        <OnOff active={todo.done} onPress={() => toggleDone(todo.id)} />
         <View style={styles.textContainer}>
-          <Text style={styles.title}>{note.note}</Text>
+          <Text
+            style={[
+              styles.title,
+              {
+                textDecorationLine: todo.done ? "line-through" : null
+              }
+            ]}
+          >
+            {todo.text}
+          </Text>
         </View>
         <TouchableOpacity
           style={styles.removeButton}
-          onPress={() => remove(note)}
+          onPress={() => remove(todo.id)}
         >
           <Icon size={32} name={"ios-add"} style={styles.icon} />
         </TouchableOpacity>

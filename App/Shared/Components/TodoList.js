@@ -1,20 +1,23 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text, ScrollView } from "react-native";
 
-import NoteListItem from "./NoteListItem";
+import TodoListItem from "./TodoListItem";
 
 var _ = require("lodash");
 var moment = require("moment");
 
-function groupByDay(notes, key = "session_start") {
-  let groupedNotes = _.groupBy(notes, note =>
-    moment(note["createdAt"], "YYYY/MM/DD")
+function groupByDay(todos) {
+  let groupedTodos = _.groupBy(todos, todo =>
+    moment(todo.createdAt)
+      .startOf("day")
+      .format()
   );
-  return groupedNotes;
+  return groupedTodos;
 }
 
-const NoteList = ({ notes, style, remove, toggleDone }) => {
-  let groupedByDay = groupByDay(notes);
+const TodoList = ({ todos, style, remove, toggleDone }) => {
+  let groupedByDay = groupByDay(todos);
+  console.log("GROUPED BY DAY\n", groupedByDay);
 
   return (
     <ScrollView style={[styles.container, style]}>
@@ -24,13 +27,13 @@ const NoteList = ({ notes, style, remove, toggleDone }) => {
             <Text style={styles.date}>
               {moment(day[0]).format("DD MMM YYYY")}
             </Text>
-            {day[1].map((note, noteIndex) => {
+            {day[1].map((todo, todoIndex) => {
               return (
-                <NoteListItem
+                <TodoListItem
                   remove={remove}
                   toggleDone={toggleDone}
-                  key={noteIndex}
-                  note={note}
+                  key={todoIndex}
+                  todo={todo}
                 />
               );
             })}
@@ -66,4 +69,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default NoteList;
+export default TodoList;

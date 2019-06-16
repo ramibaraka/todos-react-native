@@ -1,38 +1,53 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Modal } from "react-native";
 
-import { connect, Provider } from "react-redux";
+import { connect } from "react-redux";
 
 import DeviceKit from "./Shared/Utils/DeviceKit";
 
-import AddNote from "./Shared/Components/AddNote";
+import AddTodo from "./Shared/Components/AddTodo";
 import Button from "./Shared/Components/Button";
-import NoteList from "./Shared/Components/NoteList";
+import TodoList from "./Shared/Components/TodoList";
+
+import { addTodo, removeTodo, toggleTodo } from "./Redux/todoActions";
 
 class App extends Component {
   state = {
-    modalVisible: false
+    modalVisible: false,
+    id: 0
   };
   showModal = () => this.setState({ modalVisible: true });
   hideModal = () => this.setState({ modalVisible: false });
 
-  addNote = note => {
-    console.log("NOTE ADDED", note);
+  addTodo = text => {
+    const { dispatch } = this.props;
+
+    if (text !== "") {
+      const nextID = this.state.id + 1;
+      const todo = {
+        text: text,
+        id: nextID,
+        createdAt: new Date(),
+        done: false
+      };
+      dispatch(addTodo(todo));
+      this.setState({ id: nextID }, () => this.hideModal());
+    } else {
+      alert("Please enter some text");
+    }
   };
-  removeNote = note => {
-    console.log("NOTE REMOVED", note);
+  removeTodo = id => {
+    this.props.dispatch(removeTodo(id));
   };
 
-  handleToggleDone = note => {
-    console.log("NOTE TOGGLED", note);
+  handleToggleTodo = id => {
+    this.props.dispatch(toggleTodo(id));
   };
 
   render() {
     const { modalVisible } = this.state;
-    const { notes } = this.props;
-    const hasNotes = true;
-
-    console.log("NOOOOOOOTES\n", notes);
+    const { todos } = this.props;
+    const hasTodos = todos && todos.length > 0;
 
     return (
       <View style={styles.container}>
@@ -45,21 +60,21 @@ class App extends Component {
               onPress={this.showModal}
             />
           </View>
-          <NoteList
-            remove={this.removeNote}
-            toggleDone={this.handleToggleDone}
-            notes={notes}
+          <TodoList
+            remove={this.removeTodo}
+            toggleDone={this.handleToggleTodo}
+            todos={todos}
           />
         </View>
         <Modal
           animationType="slide"
           transparent={false}
-          visible={modalVisible || !hasNotes}
+          visible={modalVisible || !hasTodos}
           onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
+            console.log("Modal closed");
           }}
         >
-          <AddNote addNote={this.addNote} closeModal={this.hideModal} />
+          <AddTodo addTodo={this.addTodo} closeModal={this.hideModal} />
         </Modal>
       </View>
     );
@@ -100,8 +115,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  isLoading: state.noteReducer.isLoading,
-  notes: state.noteReducer.notes
+  isLoading: state.todoReducer.isLoading,
+  todos: state.todoReducer.todos
 });
 
 export default connect(mapStateToProps)(App);

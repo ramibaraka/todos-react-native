@@ -7,6 +7,8 @@ import {
   TouchableOpacity
 } from "react-native";
 
+import Icon from "react-native-vector-icons/dist/Ionicons";
+
 const InputField = ({ value, onChangeText, style, add }) => (
   <View style={[styles.container, style]}>
     <TextInput
@@ -17,26 +19,27 @@ const InputField = ({ value, onChangeText, style, add }) => (
       value={value}
     />
     <TouchableOpacity style={styles.addButton} onPress={add}>
-      <Text>+</Text>
+      <Icon size={22} name={"ios-add"} style={styles.add} />
     </TouchableOpacity>
   </View>
 );
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: "row",
-    alignSelf: "stretch",
     alignItems: "center",
     borderWidth: 0.5,
     borderColor: "grey",
-    borderRadius: 20,
+    borderRadius: 22.5,
     paddingLeft: 15,
     backgroundColor: "white"
   },
   input: {
     marginLeft: 10,
     height: 45,
-    flex: 1
+    flex: 1,
+    alignSelf: "stretch"
   },
   addButton: {
     padding: 10,

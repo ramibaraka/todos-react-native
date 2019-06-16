@@ -1,4 +1,4 @@
-package com.notes;
+package com.todos;
 
 import android.app.Application;
 

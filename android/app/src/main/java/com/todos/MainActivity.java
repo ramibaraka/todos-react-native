@@ -1,4 +1,4 @@
-package com.notes;
+package com.todos;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "notes";
+        return "todos";
     }
 }
