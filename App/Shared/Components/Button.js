@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/dist/Ionicons";
 const Button = ({ onPress, btnText, btnStyle }) => (
   <TouchableOpacity style={[styles.button, btnStyle]} onPress={onPress}>
     <Icon size={22} name={"ios-add"} style={styles.icon} />
-    <Text style={styles.textStyle}>{btnText}</Text>
+    {btnText ? <Text style={styles.textStyle}>{btnText}</Text> : null}
   </TouchableOpacity>
 );
 

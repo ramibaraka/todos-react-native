@@ -17,7 +17,6 @@ function groupByDay(todos) {
 
 const TodoList = ({ todos, style, remove, toggleDone }) => {
   let groupedByDay = groupByDay(todos);
-  console.log("GROUPED BY DAY\n", groupedByDay);
 
   return (
     <ScrollView style={[styles.container, style]}>

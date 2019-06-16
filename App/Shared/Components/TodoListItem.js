@@ -13,6 +13,7 @@ export default class TodoListItem extends Component<Props> {
         <OnOff active={todo.done} onPress={() => toggleDone(todo.id)} />
         <View style={styles.textContainer}>
           <Text
+            numberOfLines={1}
             style={[
               styles.title,
               {
