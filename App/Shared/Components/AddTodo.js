@@ -5,8 +5,9 @@ import DeviceKit from "../Utils/DeviceKit";
 import Button from "./Button";
 import InputField from "./InputField";
 
-type Props = {};
-export default class AddTodo extends Component<Props> {
+var moment = require("moment");
+
+export default class AddTodo extends Component {
   state = {
     editMode: false,
     text: ""
@@ -21,7 +22,12 @@ export default class AddTodo extends Component<Props> {
         behavior={DeviceKit.isIOS() ? "padding" : null}
         style={styles.container}
       >
-        <View style={styles.topHalf} />
+        <View style={styles.topHalf}>
+          <Text style={styles.title}>todo</Text>
+          <Text style={styles.date}>
+            {moment(new Date()).format("dddd DD MMM YYYY")}
+          </Text>
+        </View>
         <View style={styles.bottomHalf}>
           {this.state.editMode ? (
             <InputField
@@ -32,11 +38,15 @@ export default class AddTodo extends Component<Props> {
             />
           ) : (
             <Button
-              btnStyle={styles.positionOverLine}
+              btnStyle={[styles.positionOverLine, styles.button]}
               btnText={"Add item"}
               onPress={() => this.setState({ editMode: true })}
             />
           )}
+          <Text style={styles.caption}>
+            What do you want to do today? {"\n"}
+            Start adding items to your to-do list.
+          </Text>
         </View>
       </KeyboardAvoidingView>
     );
@@ -66,8 +76,20 @@ const styles = StyleSheet.create({
   },
   positionOverLine: {
     position: "absolute",
-    top: -20,
-    minWidth: 120,
-    marginHorizontal: 50
+    top: -20
+  },
+  button: {
+    minWidth: 120
+  },
+  title: {
+    fontSize: 26,
+    padding: 10
+  },
+  date: {
+    color: "grey"
+  },
+  caption: {
+    color: "grey",
+    textAlign: "center"
   }
 });

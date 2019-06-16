@@ -26,14 +26,15 @@ const InputField = ({ value, onChangeText, style, add }) => (
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 0.5,
     borderColor: "grey",
     borderRadius: 22.5,
     paddingLeft: 15,
-    backgroundColor: "white"
+    backgroundColor: "white",
+    alignSelf: "stretch",
+    marginLeft: 35
   },
   input: {
     marginLeft: 10,

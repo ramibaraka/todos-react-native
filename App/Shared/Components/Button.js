@@ -26,11 +26,11 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.44,
     shadowRadius: 5.32,
-
     elevation: 16
   },
   textStyle: {
-    color: "white"
+    color: "white",
+    marginLeft: 10
   },
   icon: {
     color: "white"
